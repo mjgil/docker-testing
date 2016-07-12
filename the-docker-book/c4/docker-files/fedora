@@ -1,0 +1,4 @@
+FROM fedora:20
+MAINTAINER James Turnbull "james@example.com"
+ENV REFRESHED_AT 2014-07-01
+RUN yum -q makecache
