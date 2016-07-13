@@ -68,3 +68,33 @@ docker run -t -i 997485f46ec4 /bin/bash
 
 # build and ignore the cache
 docker build --no-cache -t="mjgil32/static_web" .
+
+# look at created images
+docker images mjgil32/static_web
+
+# look at cmd history
+docker history f636d98718cb
+
+# make new container from image
+docker run -d -p 80 --name static_web mjgil32/static_web nginx -g "daemon off;"
+
+# look at docker port mapping
+docker ps -l
+
+# use docker port command
+docker port `docker ps -l -q` 80
+docker port static_web 80
+
+# bind docker port 80 to host port 80
+docker run -d -p 80:80 --name static_web mjgil32/static_web nginx -g "daemon off;"
+# bind docker port 80 to host port 8080
+docker run -d -p 8080:80 --name static_web mjgil32/static_web nginx -g "daemon off;"
+# bind docker port 80 to host interface 127.0.0.1 port 80
+docker run -d -p 127.0.0.1:80:80 --name static_web mjgil32/static_web nginx -g "daemon off;"
+# bind docker port 80 to host interface 127.0.0.1 (random port)
+docker run -d -p 127.0.0.1::80 --name static_web mjgil32/static_web nginx -g "daemon off;"
+
+# publish port 80 on random port and all ports EXPOSEd in the docker file (-P)
+docker run -d -P --name static_web mjgil32/static_web nginx -g "daemon off;"
+# run specific cmd
+docker run -i -t mjgil32/static_web /bin/true
