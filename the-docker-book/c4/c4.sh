@@ -61,7 +61,7 @@ docker build -t="mjgil32/static_web:v1" .
 docker build -t="mjgil32/static_web:git" git@github.com:mjgil/docker-static_web
 
 # build from file path
-# docker build -t "jamtur01/static_web" -f /path/to/file
+# docker build -t "jamtur01/static_web" -f /path/to/file .
 
 # run from last commit before failure
 docker run -t -i 997485f46ec4 /bin/bash
@@ -98,3 +98,11 @@ docker run -d -p 127.0.0.1::80 --name static_web mjgil32/static_web nginx -g "da
 docker run -d -P --name static_web mjgil32/static_web nginx -g "daemon off;"
 # run specific cmd
 docker run -i -t mjgil32/static_web /bin/true
+
+# push to dockerhub
+docker push mjgil32/static_web
+# locally remove docker image
+docker rmi mjgil32/static_web
+
+# remove all images
+docker rmi `docker images -a -q`
